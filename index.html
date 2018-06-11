@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="author" content="nobu_e753">
+  <meta name="description" content="GcScanner : Input Device Scanner for GameControllerizer">
+
+  <link rel="stylesheet" href="./css/normalize.css">
+  <link rel="stylesheet" href="./css/milligram.min.css">
+
+  <title>GcScanner : Input Device Scanner for GameControllerizer</title>
+
+  <script src="./js/gc_gamepad_scanner/model_analog.js"></script>
+  <script src="./js/gc_gamepad_scanner/model_digital.js"></script>
+  <script src="./js/gc_gamepad_scanner/model_custom.js"></script>
+
+  <script src="./js/gc_mouse_scanner.js"></script>
+  <script src="./js/gc_keyboard_scanner.js"></script>
+
+  <script src="./js/main.js"></script>
+  
+  <!-- Custom styles for this template -->
+  <style>
+    body {
+      font-family: helvetica, arial, 'hiragino kaku gothic pro', meiryo, 'ms pgothic', sans-serif;
+      background-color: #F4F4F4;
+      text-align: center;
+    }
+    section {
+      text-align: left;
+    }
+    .header {
+      text-align: center;
+      padding: 2rem;
+    }
+    .footer {
+      text-align: center;
+      margin-top: 1rem;
+      background-color: #EEEEEE;
+    }
+    .container {
+      max-width: 75rem;
+    }
+    .button-black {
+      background-color: rgb(96, 108, 118);
+      border-color: rgb(96, 108, 118);      
+    }
+    .history {
+      font-family: helvetica, arial, 'hiragino kaku gothic pro', meiryo, 'ms pgothic', sans-serif;
+      font-size: 1.25rem;
+      overflow: hidden;
+      resize:none;
+      height: 13.5rem;
+    }
+  </style>
+</head>
+
+<body oncontextmenu="return false;">
+  <div class="container">
+
+    <!-- header -->
+    <section class="header">
+      <h1>GcScanner</h1>
+    </section>
+
+    <!-- Information -->
+    <section>
+        <h3>Device Inputs</h3>
+        <input type="checkbox" id="dev_gamepad" onclick="resetDev(); resetHistory();"
+        ><label class="label-inline" for="dev_gamepad" >Gamepad</label>&nbsp; 
+        <input type="checkbox" id="dev_mouse" onclick="resetDev(); resetHistory();"
+        ><label class="label-inline" for="dev_mouse" >Mouse</label>&nbsp; 
+        <input type="checkbox" id="dev_keyboard" onclick="resetDev(); resetHistory();"
+        ><label class="label-inline" for="dev_keyboard">Keyboard</label>&nbsp; 
+        (<input type="checkbox" id="dev_moveless" onclick="resetDev(); resetHistory();"
+        ><label class="label-inline" for="dev_moveless">moveless</label>)
+        <textarea class=history id="event_history" rows="9"></textarea>
+    </section><br>
+
+    <!-- description -->
+    <section>
+      <h3>About</h3>
+      Input Device Scanner for
+      <a href="https://github.com/nobu-e753/GameControllerizer">GameControllerizer</a>. Control signals from a input device is scanned, then sended to Node-RED via Websocket.
+      <b>FireFox</b> browser is strongly recommend.
+    </section><br><br>
+
+    <!-- query paraemters -->
+    <section>
+      <h3>Query parameters</h3>
+      <table>
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Type</th>
+              <th>Description</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>fps</td>
+              <td>Int</td>
+              <td>Device scanning fps (default=30)</td>
+            </tr>
+            <tr>
+              <td>gamepad_id</td>
+              <td>Int</td>
+              <td>Gamepad id (check console log. default=0)</td>
+            </tr>
+            <tr>
+              <td>wshost</td>
+              <td>String</td>
+              <td>Target host (check console log. default=location.hostname)</td>
+            </tr>
+            <tr>
+              <td>wsport</td>
+              <td>Int</td>
+              <td>Target port (check console log. default=1880)</td>
+            </tr>
+          </tbody>
+        </table>
+    </section><br>
+
+    <!-- 
+      
+    # local hosting 
+    GcScanner can be executed on local http server such as npm-http-server.
+    Check and edit js/main.js for target(=Node-RED) server ip address.
+    
+    ```
+    $ npm install http-server
+    $ git clone [this repository]
+    $ cd [target dir]
+    $ http-server</code></pre>
+    ```
+
+    # Custom gamepad
+    Edit `js/gc_gamepad_scanner/model_custom.js`, then edit js/main.js for loading.
+
+    -->
+
+    <!-- footer -->
+    <section class="footer">
+      <small>&copy; 2018 ToG Project</small>
+    </section>
+  </div>
+
+</body>
+</html>
