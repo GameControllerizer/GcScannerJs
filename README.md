@@ -24,7 +24,7 @@ Read this in other languages: [English](./README.en.md), [日本語](./README.md
  - /mouse
  - /keyboard
 
-のエンドポイントを用意してください．[こちら]()のサンプルも合わせて参照ください．
+のエンドポイントを用意してください．[こちら](https://github.com/nobu-e753/node-red-contrib-game_controllerizer/blob/master/README.md)のサンプルも合わせて参照ください．
 
 # 注意事項
 Gamepad のタイプ判定ロジックが十分でないため，方向キーやアナログスティックを認識しないことがあります．
