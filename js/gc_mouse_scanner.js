@@ -28,7 +28,7 @@ GC_MOUSE.handleMouseMove = function(e){
     const dx = e.movementX;
     const dy = e.movementY;
     GC_MOUSE.mov[0] += dx;
-    GC_MOUSE.mov[1] -= dy;
+    GC_MOUSE.mov[1] += dy;
     GC_MOUSE.event |= true;
 }
 
