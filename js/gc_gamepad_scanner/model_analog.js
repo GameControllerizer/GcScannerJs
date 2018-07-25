@@ -21,10 +21,10 @@ GC_GAMEPAD_analog.scan = function(){
         return null;
 
     // scan dpad
-    const tLF = (tDev.axes[4] < -0.5) ? 1:0;
-    const tRT = (tDev.axes[4] >  0.5) ? 1:0;
-    const tUP = (tDev.axes[5] < -0.5) ? 1:0;
-    const tDW = (tDev.axes[5] >  0.5) ? 1:0;
+    const tUP = (tDev.buttons[12].pressed) ? 1:0;
+    const tDW = (tDev.buttons[13].pressed) ? 1:0;
+    const tRT = (tDev.buttons[14].pressed) ? 1:0;
+    const tLF = (tDev.buttons[15].pressed) ? 1:0;
     var tRawDpad = (tLF<<3) | (tDW<<2) | (tRT<<1) | (tUP<<0);
     tNewDpad = GC_GAMEPAD_analog.to9dir[tRawDpad];
 

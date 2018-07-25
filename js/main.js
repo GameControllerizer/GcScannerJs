@@ -97,7 +97,6 @@ function createWsClient(aUrl, aDev){
 window.onload = function () {
     const tFps = getQueryParam("fps", 30);
     console.info("set scan FPS = %d", tFps);
-    console.info("target gamepad_id = %d", getQueryParam("gamepad_id", 0));
     window.addEventListener("gamepadconnected", onGamepadConnected);
     window.addEventListener("gamepaddisconnected", onGamepadDisconnected);
     resetDev();
@@ -123,22 +122,31 @@ function onGamepadConnected(e) {
     console.info("gamepad connected(%d) :  %s. %d buttons, %d axes.",
         e.gamepad.index, e.gamepad.id, e.gamepad.buttons.length, e.gamepad.axes.length);
 
-    if (e.gamepad.axes.length > 2){
-        GC_GAMEPAD = GC_GAMEPAD_analog;
-        console.info("Analog gamepad is detected");
-    }
-    else {
-        GC_GAMEPAD = GC_GAMEPAD_digital;
-        console.info("Digital gamepad is detected");
+    const tGamepadId = getQueryParam("gamepad_id", 0);
+    const tGamepadModel = getQueryParam("gamepad_model", 1);
+    console.info("target gamepad_id = %d", tGamepadId);
+    console.info("target gamepad_model = %d", tGamepadModel);
+
+    switch(tGamepadModel){
+        case "1":
+            GC_GAMEPAD = GC_GAMEPAD_dsimple;
+            break;
+        case "2":
+            GC_GAMEPAD = GC_GAMEPAD_dclassic;
+            break;
+        case "3":
+            GC_GAMEPAD = GC_GAMEPAD_analog;
+            break;
+        case "0":
+            GC_GAMEPAD = GC_GAMEPAD_custom;
+            break;
+        default:
+            console.error("Unknow Gamepad model : %d", tGamepadModel);
+            GC_GAMEPAD = GC_GAMEPAD_dsimple;
+            break;
     }
 
-    /**********************************
-     * Enable custom gamepad
-     *
-    GC_GAMEPAD = GC_GAMEPAD_custom;
-    **********************************/
-
-    GC_GAMEPAD.dev = getQueryParam("gamepad_id", 0);
+    GC_GAMEPAD.dev = tGamepadId;
     resetDev();
 };
 function onGamepadDisconnected(e){
