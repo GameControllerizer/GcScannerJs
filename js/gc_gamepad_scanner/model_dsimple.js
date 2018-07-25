@@ -15,16 +15,21 @@ GC_GAMEPAD_dsimple.init = function(aEnableDev, aEnableAng){
     GC_GAMEPAD_dsimple.stateStr = "";
 }
 
+GC_GAMEPAD_dsimple.axisorder = true;
+
 GC_GAMEPAD_dsimple.scan = function(){
     var tDev = navigator.getGamepads()[GC_GAMEPAD_dsimple.dev];
     if (!GC_GAMEPAD_dsimple.enableDev || (tDev == null))
         return null;
     
     // scan dpad
-    const tUP = (tDev.axes[1] < -0.5) ? 1:0;
-    const tDW = (tDev.axes[1] >  0.5) ? 1:0;
-    const tRT = (tDev.axes[0] >  0.5) ? 1:0;
-    const tLF = (tDev.axes[0] < -0.5) ? 1:0;
+    const tAxesIndexUD = (GC_GAMEPAD_dsimple.axisorder) ? 1 : tDev.axes.length - 1;
+    const tAxesIndexRL = (GC_GAMEPAD_dsimple.axisorder) ? 0 : tDev.axes.length - 2;
+
+    const tUP = (tDev.axes[tAxesIndexUD] < -0.5) ? 1:0;
+    const tDW = (tDev.axes[tAxesIndexUD] >  0.5) ? 1:0;
+    const tRT = (tDev.axes[tAxesIndexRL] >  0.5) ? 1:0;
+    const tLF = (tDev.axes[tAxesIndexRL] < -0.5) ? 1:0;
     var tRawDpad = (tLF<<3) | (tDW<<2) | (tRT<<1) | (tUP<<0);
     tNewDpad = GC_GAMEPAD_dsimple.to9dir[tRawDpad];
 

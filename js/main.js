@@ -130,11 +130,16 @@ function onGamepadConnected(e) {
     switch(tGamepadModel){
         case "1":
             GC_GAMEPAD = GC_GAMEPAD_dsimple;
+            GC_GAMEPAD.axisorder = true;
             break;
         case "2":
-            GC_GAMEPAD = GC_GAMEPAD_dclassic;
+            GC_GAMEPAD = GC_GAMEPAD_dsimple;
+            GC_GAMEPAD.axisorder = false;
             break;
         case "3":
+            GC_GAMEPAD = GC_GAMEPAD_dclassic;
+            break;
+        case "4":
             GC_GAMEPAD = GC_GAMEPAD_analog;
             break;
         case "0":
