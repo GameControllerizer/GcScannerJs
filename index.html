@@ -15,8 +15,9 @@
 
   <title>GcScanner : Input Device Scanner for GameControllerizer</title>
 
+  <script src="./js/gc_gamepad_scanner/model_dsimple.js"></script>
+  <script src="./js/gc_gamepad_scanner/model_dclassic.js"></script>
   <script src="./js/gc_gamepad_scanner/model_analog.js"></script>
-  <script src="./js/gc_gamepad_scanner/model_digital.js"></script>
   <script src="./js/gc_gamepad_scanner/model_custom.js"></script>
 
   <script src="./js/gc_mouse_scanner.js"></script>
@@ -86,8 +87,8 @@
     <section>
       <h3>About</h3>
       Input Device Scanner for
-      <a href="https://github.com/nobu-e753/GameControllerizer">GameControllerizer</a>. Control signals from a input device is scanned, then sended to Node-RED via Websocket.
-      <b>FireFox</b> browser is strongly recommend.
+      <a href="https://github.com/nobu-e753/GameControllerizer">GameControllerizer</a>. Control signals from a input device is scanned, then sent to Node-RED via Websocket.
+	  <b>FireFox</b> browser is strongly recommended.
     </section><br><br>
 
     <!-- query paraemters -->
@@ -110,39 +111,56 @@
             <tr>
               <td>gamepad_id</td>
               <td>Int</td>
-              <td>Gamepad id (check console log. default=0)</td>
+              <td>Gamepad id (default=0)</td>
             </tr>
             <tr>
+			  <td>gamepad_model</td>
+			  <td>Int</td>
+			  <td>Gamepad model (default=1) <br>
+        1 : Digital simple0 (1-dpad,n-buttons)<br>
+        2 : Digital simple1 (1-dpad,n-buttons)<br>
+        3 : Digital classic (n-buttons)<br>
+				4 : Analog simple   (1-dpad,n-buttons,4-axes)<br>
+				0 : Custom gamepad  (* see below section)<br>
+				<i>(Recommended : Xinput, PS3 + button remapping tool)</i>
+			  </td>
+			</tr>
+			<tr>
               <td>wshost</td>
               <td>String</td>
-              <td>Target host (check console log. default=location.hostname)</td>
+              <td>Target host (default=location.hostname)</td>
             </tr>
             <tr>
               <td>wsport</td>
               <td>Int</td>
-              <td>Target port (check console log. default=1880)</td>
+              <td>Target port (default=1880)</td>
             </tr>
           </tbody>
         </table>
-    </section><br>
+        * check browser console logs for current status.
+    </section><br><br>
 
-    <!-- 
-      
-    # local hosting 
-    GcScanner can be executed on local http server such as npm-http-server.
-    Check and edit js/main.js for target(=Node-RED) server ip address.
-    
-    ```
-    $ npm install http-server
-    $ git clone [this repository]
-    $ cd [target dir]
-    $ http-server</code></pre>
-    ```
+	<section>
+	<h3>local hosting</h3>
+	GcScanner can be executed on local http server such as npm-http-server.
+	
+	<pre><code>$ npm install http-server
+$ git clone [this repository]
+$ cd [target dir]
+$ http-server</code></pre>
+	</section><br>
 
-    # Custom gamepad
-    Edit `js/gc_gamepad_scanner/model_custom.js`, then edit js/main.js for loading.
-
-    -->
+	<section>
+	<h3>Custom gamepad</h3>
+  If you want to use your own gamepad,
+  <p>
+  <ol>
+    <li> "Local hosting" (above section)
+    <li> Edit 'js/gc_gamepad_scanner/model_custom.js'
+    <li> Reload 'index.html' with the query parameter ('gamepad_model=0')
+  </ol>
+  </p>
+	</section><br><br>
 
     <!-- footer -->
     <section class="footer">
