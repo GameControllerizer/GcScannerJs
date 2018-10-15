@@ -9,6 +9,8 @@ var EVENT_HISTORY = null;
 var WS_HOST = null;
 var WS_PORT = null;
 
+var URL_PARAMS = null;
+
 /**
  * Reload scan taget devices
  */
@@ -37,7 +39,6 @@ function resetHistory(){
 
 /**
  * Main scan loop
- *
  *  - max event history length = 8;
  */
 function scanDev(){
@@ -57,7 +58,7 @@ function scanDev(){
             if (tClient && (tClient.readyState==1))
                 tClient.send(tMsgStr);
             // display log
-            var tLog = `${++EVENT_HISTORY.count} (${e.dev}) : ${tMsgStr}\n`;            
+            var tLog = `${++EVENT_HISTORY.count} (${e.dev}) : ${tMsgStr}\n`;
             EVENT_HISTORY.log.push(tLog);
         }
     }
@@ -75,16 +76,28 @@ function scanDev(){
 /**
  * default fps = 30
  * default gamepad_id = 0
- * default ws_host = location.hostname
- * default ws_port = 1880
+ * default gamepad_model = 1
+ * default wshost = location.hostname
+ * default wsport = 1880
  */
-function getQueryParam(aQuery, aDefault){
-    const tUrlParams = new URLSearchParams(window.location.search);
-    return (tUrlParams.has(aQuery)) ? tUrlParams.get(aQuery) : aDefault;
+function getIntQueryParam(aQuery, aDefault){
+    const tValue = parseInt(URL_PARAMS.get(aQuery));
+    if (tValue)
+        return tValue;    
+    else
+        return aDefault;        
 }
+function getStrQueryParam(aQuery, aDefault){
+    const tValue = URL_PARAMS.get(aQuery);
+    if (tValue)
+        return tValue;    
+    else
+        return aDefault;        
+}
+
 function createWsClient(aUrl, aDev){
     var tClients = null;
-    tClient = new WebSocket(`${aUrl}/${aDev}`);    
+    tClient = new WebSocket(`${aUrl}/${aDev}`);
     tClient.onopen = function(e){
         console.info(`[${aDev}] is online`)
     };
@@ -95,7 +108,9 @@ function createWsClient(aUrl, aDev){
 }
 
 window.onload = function () {
-    const tFps = getQueryParam("fps", 30);
+    URL_PARAMS = new URLSearchParams(window.location.search);
+
+    const tFps = getIntQueryParam("fps", 30);
     console.info("set scan FPS = %d", tFps);
     window.addEventListener("gamepadconnected", onGamepadConnected);
     window.addEventListener("gamepaddisconnected", onGamepadDisconnected);
@@ -103,8 +118,8 @@ window.onload = function () {
     resetHistory();
 
     // Create WebSocket clients
-    const tWsHost = getQueryParam("wshost", location.hostname);
-    const tWsPort = getQueryParam("wsport", 1880);
+    const tWsHost = getStrQueryParam("wshost", location.hostname);
+    const tWsPort = getIntQueryParam("wsport", 1880);
     const tWsUrl = `ws://${tWsHost}:${tWsPort}`;
     console.info("Websocket host url = %s", tWsUrl);
 
@@ -122,27 +137,27 @@ function onGamepadConnected(e) {
     console.info("gamepad connected(%d) :  %s. %d buttons, %d axes.",
         e.gamepad.index, e.gamepad.id, e.gamepad.buttons.length, e.gamepad.axes.length);
 
-    const tGamepadId = getQueryParam("gamepad_id", 0);
-    const tGamepadModel = getQueryParam("gamepad_model", 1);
+    const tGamepadId = getIntQueryParam("gamepad_id", 0);
+    const tGamepadModel = getIntQueryParam("gamepad_model", 1);
     console.info("target gamepad_id = %d", tGamepadId);
-    console.info("target gamepad_model = %d", tGamepadModel);
+    console.info("target gamepad_model = %s", tGamepadModel);
 
     switch(tGamepadModel){
-        case "1":
+        case 1:
             GC_GAMEPAD = GC_GAMEPAD_dsimple;
             GC_GAMEPAD.axisorder = true;
             break;
-        case "2":
+        case 2:
             GC_GAMEPAD = GC_GAMEPAD_dsimple;
             GC_GAMEPAD.axisorder = false;
             break;
-        case "3":
+        case 3:
             GC_GAMEPAD = GC_GAMEPAD_dclassic;
             break;
-        case "4":
+        case 4:
             GC_GAMEPAD = GC_GAMEPAD_analog;
             break;
-        case "0":
+        case 0:
             GC_GAMEPAD = GC_GAMEPAD_custom;
             break;
         default:
