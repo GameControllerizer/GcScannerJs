@@ -15,8 +15,8 @@ var URL_PARAMS = null;
  * Reload scan taget devices
  */
 function resetDev(){
-    const tEnableMouse = document.getElementById("dev_mouse").checked == true;
     const tEnableGamepad = document.getElementById("dev_gamepad").checked == true;
+    const tEnableMouse = document.getElementById("dev_mouse").checked == true;
     const tEnableKeyboard = document.getElementById("dev_keyboard").checked == true;
 
     const tEnableMovescan = document.getElementById("dev_moveless").checked == false;
