@@ -12,7 +12,10 @@ GC_GAMEPAD_analog.init = function(aEnableDev, aEnableAng){
     GC_GAMEPAD_analog.enableDev = aEnableDev;
     GC_GAMEPAD_analog.enableAng = aEnableDev && aEnableAng;
     
-    GC_GAMEPAD_analog.stateStr = "";
+	GC_GAMEPAD_analog.dpad = 5;
+	GC_GAMEPAD_analog.btn = [];
+	GC_GAMEPAD_analog.stk0 = [0,0];
+	GC_GAMEPAD_analog.stk1 = [0,0];	
 }
 
 GC_GAMEPAD_analog.scan = function(){
@@ -27,13 +30,14 @@ GC_GAMEPAD_analog.scan = function(){
     const tLF = (tDev.buttons[15].pressed) ? 1:0;
     var tRawDpad = (tLF<<3) | (tDW<<2) | (tRT<<1) | (tUP<<0);
     tNewDpad = GC_GAMEPAD_analog.to9dir[tRawDpad];
+	// tNewDpad = 5;
 
-    // scan buttons
-    var tNewBtn = [];
-    for (var i=0; i<tDev.buttons.length; i++){
-        if (tDev.buttons[i].pressed)
-            tNewBtn.push(i);
-    }
+	// scan buttons
+	var tNewBtn = [];
+	for (var i=0; i<Math.min(12, tDev.buttons.length); i++){
+		if (tDev.buttons[i].pressed)
+			tNewBtn.push(i);
+	}
         
     // scan analog (no analog sticks)
     var tNewAng = [0, 0, 0, 0];
@@ -42,19 +46,33 @@ GC_GAMEPAD_analog.scan = function(){
         tNewAng[1] = GC_GAMEPAD_analog.to8bit(tDev.axes[1]);
         tNewAng[2] = GC_GAMEPAD_analog.to8bit(tDev.axes[2]);
         tNewAng[3] = GC_GAMEPAD_analog.to8bit(tDev.axes[3]);
-    }
-    const tNewState = {
-        "dpad" : tNewDpad,
-        "btn" : tNewBtn,
-        "ang" : tNewAng,
-        "dur" : -1
-    };
-    const tNewStateStr = JSON.stringify(tNewState);
-    if (GC_GAMEPAD_analog.stateStr !== tNewStateStr){
-        GC_GAMEPAD_analog.stateStr = tNewStateStr;
-        return tNewState;
-    } else
-        return null;
+	}
+	
+	var tNewState = {};
+	// dpad
+	if (GC_GAMEPAD_analog.dpad != tNewDpad)
+		tNewState["dpad"] = tNewDpad;
+	GC_GAMEPAD_analog.dpad = tNewDpad;
+	// button-set
+	let tSetBtn = tNewBtn.filter(x => !GC_GAMEPAD_analog.btn.includes(x));
+	let tUnsetBtn = GC_GAMEPAD_analog.btn.filter(x => !tNewBtn.includes(x));	
+	let tChangedBtn = {};
+	for (let b of tSetBtn)
+		tChangedBtn[b] = true;
+	for (let b of tUnsetBtn)
+		tChangedBtn[b] = false;
+	if (Object.entries(tChangedBtn).length>0)
+		tNewState["btn"] = tChangedBtn;
+	GC_GAMEPAD_analog.btn = tNewBtn;
+	
+//	tNewState["ang"] = tNewAng;
+
+	if (Object.keys(tNewState).length>0)
+		tNewState["dur"] = -1;
+	else
+		tNewState = null;
+
+	return tNewState;
 }
 
 GC_GAMEPAD_analog.to9dir = [

@@ -21,8 +21,7 @@ function resetDev(){
 
     const tEnableMovescan = document.getElementById("dev_moveless").checked == false;
 
-    if (GC_GAMEPAD)
-        GC_GAMEPAD.init(tEnableGamepad, tEnableMovescan);
+	GC_GAMEPAD.init(tEnableGamepad);
     GC_MOUSE.init(tEnableMouse, tEnableMovescan);
     GC_KEYBOARD.init(tEnableKeyboard);
 }
@@ -45,8 +44,7 @@ function scanDev(){
     const tPrevHistoryCount = EVENT_HISTORY.count;
 
     var tEvents = [];
-    if (GC_GAMEPAD)
-        tEvents.push({"dev":"gamepad",  "msg":GC_GAMEPAD.scan()});
+	tEvents.push({"dev":"gamepad",  "msg":GC_GAMEPAD.scan()});
     tEvents.push({"dev":"mouse",    "msg":GC_MOUSE.scan()});
     tEvents.push({"dev":"keyboard", "msg":GC_KEYBOARD.scan()});
 
@@ -113,7 +111,8 @@ window.onload = function () {
     const tFps = getIntQueryParam("fps", 30);
     console.info("set scan FPS = %d", tFps);
     window.addEventListener("gamepadconnected", onGamepadConnected);
-    window.addEventListener("gamepaddisconnected", onGamepadDisconnected);
+	window.addEventListener("gamepaddisconnected", onGamepadDisconnected);
+	GC_GAMEPAD = new GcGamepadBase();
     resetDev();
     resetHistory();
 
@@ -144,33 +143,24 @@ function onGamepadConnected(e) {
 
     switch(tGamepadModel){
         case 1:
-            GC_GAMEPAD = GC_GAMEPAD_dsimple;
-            GC_GAMEPAD.axisorder = true;
+			GC_GAMEPAD = new GcGamepadDigital(tGamepadId);
             break;
         case 2:
-            GC_GAMEPAD = GC_GAMEPAD_dsimple;
-            GC_GAMEPAD.axisorder = false;
-            break;
-        case 3:
-            GC_GAMEPAD = GC_GAMEPAD_dclassic;
-            break;
-        case 4:
-            GC_GAMEPAD = GC_GAMEPAD_analog;
+            GC_GAMEPAD = new GcGamepadAnalog(tGamepadId);
             break;
         case 0:
-            GC_GAMEPAD = GC_GAMEPAD_custom;
+            GC_GAMEPAD = new GcGamepadCustom(tGamepadId);
             break;
         default:
             console.error("Unknow Gamepad model : %d", tGamepadModel);
-            GC_GAMEPAD = GC_GAMEPAD_dsimple;
+            GC_GAMEPAD = new GcGamepadBase(tGamepadId);
             break;
     }
-
-    GC_GAMEPAD.dev = tGamepadId;
     resetDev();
 };
 function onGamepadDisconnected(e){
     console.warn("gamepad disconnected : %s",
-        e.gamepad.id);
-    GC_GAMEPAD.dev = null;
+		e.gamepad.id);
+	if (e.gamepad.id==GC_GAMEPAD.id)
+		GC_GAMEPAD = new GcGamepadBase(0);
 };

@@ -1,5 +1,5 @@
 /**
- * board scanner
+ * Keyboard scanner
  *  - Key(key) : Object
  *  - Modifierkey(mod) : Object
  * 

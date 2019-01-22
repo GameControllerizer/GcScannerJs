@@ -15,11 +15,11 @@
 
   <title>GcScanner : Input Device Scanner for GameControllerizer</title>
 
-  <script src="./js/gc_gamepad_scanner/model_dsimple.js"></script>
-  <script src="./js/gc_gamepad_scanner/model_dclassic.js"></script>
+  <!-- <script src="./js/gc_gamepad_scanner/model_digigal.js"></script>
   <script src="./js/gc_gamepad_scanner/model_analog.js"></script>
-  <script src="./js/gc_gamepad_scanner/model_custom.js"></script>
+  <script src="./js/gc_gamepad_scanner/model_custom.js"></script> -->
 
+  <script src="./js/gc_gamepad_scanner.js"></script>
   <script src="./js/gc_mouse_scanner.js"></script>
   <script src="./js/gc_keyboard_scanner.js"></script>
 
@@ -83,7 +83,7 @@
     <section>
       <h3>About</h3>
       Input Device Scanner for
-      <a href="https://github.com/nobu-e753/GameControllerizer">GameControllerizer</a>. Control signals from a input device is scanned, then sent to Node-RED via Websocket.
+      <a href="https://github.com/nobu-e753/GameControllerizer">GameControllerizer</a>. Control signals from a input device is scanned, then sent to Node-RED via Websocket (<code>ws://[wshost]:[wsport]/{gamepad,mouse,keyboard}</code>).
 	  <b>FireFox</b> browser is strongly recommended.
     </section><br><br>
 
@@ -113,11 +113,9 @@
 			  <td>gamepad_model</td>
 			  <td>Int</td>
 			  <td>Gamepad model (default=1) <br>
-        1 : Digital simple0 (1-dpad,n-buttons)<br>
-        2 : Digital simple1 (1-dpad,n-buttons)<br>
-        3 : Digital classic (n-buttons)<br>
-				4 : Analog simple   (1-dpad,n-buttons,4-axes)<br>
-				0 : Custom gamepad  (* see below section)<br>
+        1 : Digital (1-dpad,12-buttons)<br>
+		2 : Analog  (1-dpad,12-buttons,4-axes)<br>
+		0 : Custom  (* see below section)<br>
 				<i>(Recommended : Xinput, PS3 + button remapping tool)</i>
 			  </td>
 			</tr>
