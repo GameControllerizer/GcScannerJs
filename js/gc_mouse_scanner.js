@@ -1,6 +1,6 @@
 /**
  * Mouse scanner 
- *  - Button(btn) : Set[Int]
+ *  - Button(btn) : Object
  *	- left   : 0
  *	- right  : 1
  *	- middle : 2
@@ -46,10 +46,7 @@ GC_MOUSE.init = function(enable_mouse, enable_mov) {
 }
 
 GC_MOUSE.scan = function(){
-	const tNewBtn = Array.from(GC_MOUSE.btn);
-	const tNewMov = GC_MOUSE.mov;
 	var tNewState = {};
-
 	if (Object.entries(GC_MOUSE.btn).length>0)
 		tNewState["btn"] = GC_MOUSE.btn;
 	if ((GC_MOUSE.mov[0]|GC_MOUSE.mov[1])!=0)
