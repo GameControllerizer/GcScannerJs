@@ -12,7 +12,7 @@ var inherits = function(childCtor, parentCtor) {
 /**
  * GcGamepadBase
  */
-var GcGamepadBase = function(id){
+var GcGamepadBase = function(id=null){
 	this.id = id;
 }
 GcGamepadBase.prototype.init = function(enable) {
@@ -95,10 +95,10 @@ var GcGamepadDigital = function(id){
 inherits(GcGamepadDigital, GcGamepadBase);
 
 GcGamepadDigital.prototype.scan_dpad = function(){
-    const tUp = (this.dev.axes[0] < -0.5) ? 1:0;
-    const tDw = (this.dev.axes[0] >  0.5) ? 1:0;
-    const tRt = (this.dev.axes[1] >  0.5) ? 1:0;
-    const tLf = (this.dev.axes[1] < -0.5) ? 1:0;
+    const tUp = (this.dev.axes[1] < -0.5) ? 1:0;
+    const tDw = (this.dev.axes[1] >  0.5) ? 1:0;
+    const tRt = (this.dev.axes[0] >  0.5) ? 1:0;
+    const tLf = (this.dev.axes[0] < -0.5) ? 1:0;
     var tRawDpad = (tLf<<3) | (tDw<<2) | (tRt<<1) | (tUp<<0);
 	const tNewDpad = this.to9dir[tRawDpad];
 

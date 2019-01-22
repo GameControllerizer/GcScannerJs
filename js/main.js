@@ -153,7 +153,7 @@ function onGamepadConnected(e) {
             break;
         default:
             console.error("Unknow Gamepad model : %d", tGamepadModel);
-            GC_GAMEPAD = new GcGamepadBase(tGamepadId);
+            GC_GAMEPAD = new GcGamepadBase();
             break;
     }
     resetDev();
@@ -162,5 +162,5 @@ function onGamepadDisconnected(e){
     console.warn("gamepad disconnected : %s",
 		e.gamepad.id);
 	if (e.gamepad.id==GC_GAMEPAD.id)
-		GC_GAMEPAD = new GcGamepadBase(0);
+		GC_GAMEPAD = new GcGamepadBase();
 };

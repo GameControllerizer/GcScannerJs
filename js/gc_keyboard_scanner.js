@@ -5,6 +5,9 @@
  * 
  * board scanner generate press event only.
  */
+
+
+
 var GC_KEYBOARD = {};
 
 GC_KEYBOARD.key = {};

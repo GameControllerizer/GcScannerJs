@@ -8,11 +8,11 @@
  *	- x : mov[0] (delta position) 
  *	- y : mov[1] (delta position)
  */
+
 var GC_MOUSE = {};
 
-GC_MOUSE.btn = {}; //new Set([]);
+GC_MOUSE.btn = {};
 GC_MOUSE.mov = [0, 0];
-GC_MOUSE.event = {};
 
 GC_MOUSE.handleMouseDown = function(e) {
 	GC_MOUSE.btn[e.button] = true;

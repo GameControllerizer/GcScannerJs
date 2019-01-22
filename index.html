@@ -7,17 +7,13 @@
   <meta name="author" content="">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="author" content="nobu_e753">
+  <meta name="author" content="nobu-e753">
   <meta name="description" content="GcScanner : Input Device Scanner for GameControllerizer">
 
   <link rel="stylesheet" href="./css/normalize.css">
   <link rel="stylesheet" href="./css/milligram.min.css">
 
   <title>GcScanner : Input Device Scanner for GameControllerizer</title>
-
-  <!-- <script src="./js/gc_gamepad_scanner/model_digigal.js"></script>
-  <script src="./js/gc_gamepad_scanner/model_analog.js"></script>
-  <script src="./js/gc_gamepad_scanner/model_custom.js"></script> -->
 
   <script src="./js/gc_gamepad_scanner.js"></script>
   <script src="./js/gc_mouse_scanner.js"></script>
@@ -83,7 +79,7 @@
     <section>
       <h3>About</h3>
       Input Device Scanner for
-      <a href="https://github.com/nobu-e753/GameControllerizer">GameControllerizer</a>. Control signals from a input device is scanned, then sent to Node-RED via Websocket (<code>ws://[wshost]:[wsport]/{gamepad,mouse,keyboard}</code>).
+      <a href="https://github.com/GameControllerizer/GameControllerizer">GameControllerizer</a>. Control signals from a input device is scanned, then sent to Node-RED via Websocket (<code>ws://[wshost]:[wsport]/{gamepad,mouse,keyboard}</code>).
 	  <b>FireFox</b> browser is strongly recommended.
     </section><br><br>
 
@@ -135,7 +131,7 @@
     </section><br><br>
 
 	<section>
-	<h3>local hosting</h3>
+	<h3>Local hosting</h3>
 	GcScanner can be executed on local http server such as npm-http-server.
 	
 	<pre><code>$ npm install http-server
@@ -150,7 +146,7 @@ $ http-server</code></pre>
   <p>
   <ol>
     <li> "Local hosting" (above section)
-    <li> Edit 'js/gc_gamepad_scanner/model_custom.js'
+    <li> Edit 'js/gc_gamepad_scanner.js'
     <li> Reload 'index.html' with the query parameter ('gamepad_model=0')
   </ol>
   </p>
@@ -158,7 +154,7 @@ $ http-server</code></pre>
 
     <!-- footer -->
     <section class="footer">
-      <small>&copy; 2018 ToG Project</small>
+      <small>&copy; 2018 High Score Boys</small>
     </section>
   </div>
 
