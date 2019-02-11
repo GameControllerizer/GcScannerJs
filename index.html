@@ -4,11 +4,11 @@
 <head>
   <meta charset="utf-8">
   <meta name="description" content="">
-  <meta name="author" content="">
+  <meta name="author" content="Hi Score Boys">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="author" content="nobu-e753">
-  <meta name="description" content="GcScanner : Input Device Scanner for GameControllerizer">
+  <meta name="description" content="GcScanner : Input device scanner for GameControllerizer">
 
   <link rel="stylesheet" href="./css/normalize.css">
   <link rel="stylesheet" href="./css/milligram.min.css">
@@ -58,12 +58,12 @@
 
     <!-- header -->
     <section class="header">
-      <h1>GcScanner</h1>
+      <h1>GcScannerJs</h1>
     </section>
 
     <!-- Information -->
     <section>
-        <h3>Device Inputs</h3>
+        <h3>Device inputs</h3>
         <input type="checkbox" id="dev_gamepad" onclick="resetDev(); resetHistory();"
         ><label class="label-inline" for="dev_gamepad" >Gamepad</label>&nbsp; 
         <input type="checkbox" id="dev_mouse" onclick="resetDev(); resetHistory();"
@@ -78,8 +78,8 @@
     <!-- description -->
     <section>
       <h3>About</h3>
-      Input Device Scanner for
-      <a href="https://github.com/GameControllerizer/GameControllerizer">GameControllerizer</a>. Control signals from a input device is scanned, then sent to Node-RED via Websocket (<code>ws://[wshost]:[wsport]/{gamepad,mouse,keyboard}</code>).
+      Broweser-based input device scanner for
+      <a href="https://github.com/GameControllerizer/GameControllerizer">GameControllerizer</a>. Control operations from a input device is scanned, then sent to Node-RED via Websocket (<code>ws://[wshost]:[wsport]/{gamepad,mouse,keyboard}</code>).
 	  <b>FireFox</b> browser is strongly recommended.
     </section><br><br>
 
@@ -131,30 +131,19 @@
     </section><br><br>
 
 	<section>
-	<h3>Local hosting</h3>
-	GcScanner can be executed on local http server such as npm-http-server.
-	
-	<pre><code>$ npm install http-server
-$ git clone [this repository]
-$ cd [target dir]
-$ http-server</code></pre>
-	</section><br>
-
-	<section>
 	<h3>Custom gamepad</h3>
   If you want to use your own gamepad,
   <p>
   <ol>
-    <li> "Local hosting" (above section)
-    <li> Edit 'js/gc_gamepad_scanner.js'
-    <li> Reload 'index.html' with the query parameter ('gamepad_model=0')
+    <li> Edit <code>'js/gc_gamepad_scanner.js'</code>
+    <li> Reload <code>'index.html'</code> with the query parameter (<code>'gamepad_model=0'</code>)
   </ol>
   </p>
 	</section><br><br>
 
     <!-- footer -->
     <section class="footer">
-      <small>&copy; 2018 High Score Boys</small>
+      <small>&copy; 2018 Hi Score Boys</small>
     </section>
   </div>
 
