@@ -15,15 +15,15 @@ var URL_PARAMS = null;
  * Reload scan taget devices
  */
 function resetDev(){
-    const tEnableGamepad = document.getElementById("dev_gamepad").checked == true;
-    const tEnableMouse = document.getElementById("dev_mouse").checked == true;
-    const tEnableKeyboard = document.getElementById("dev_keyboard").checked == true;
+    const tEnabledGamepad = document.getElementById("dev_gamepad").checked == true;
+    const tEnabledMouse = document.getElementById("dev_mouse").checked == true;
+    const tEnabledKeyboard = document.getElementById("dev_keyboard").checked == true;
 
-    const tEnableMovescan = document.getElementById("dev_moveless").checked == false;
+    const tEnabledMovescan = document.getElementById("dev_moveless").checked == false;
 
-	GC_GAMEPAD.init(tEnableGamepad);
-    GC_MOUSE.init(tEnableMouse, tEnableMovescan);
-    GC_KEYBOARD.init(tEnableKeyboard);
+	GC_GAMEPAD.init(tEnabledGamepad);
+    GC_MOUSE.init(tEnabledMouse, tEnabledMovescan);
+    GC_KEYBOARD.init(tEnabledKeyboard);
 }
 
 /**
@@ -108,6 +108,16 @@ function createWsClient(aUrl, aDev){
 window.onload = function () {
     URL_PARAMS = new URLSearchParams(window.location.search);
 
+    const tCheckedGamepad = getIntQueryParam("enable_gamepad", 0);
+    const tCheckedMouse = getIntQueryParam("enable_mouse", 0);
+    const tCheckedKeyboard = getIntQueryParam("enable_keyboard", 0);
+    const tCheckedMoveless = getIntQueryParam("enable_moveless", 0);
+    
+    document.getElementById("dev_gamepad").checked = tCheckedGamepad > 0;
+    document.getElementById("dev_mouse").checked = tCheckedMouse > 0;
+    document.getElementById("dev_keyboard").checked = tCheckedKeyboard > 0;
+    document.getElementById("dev_moveless").checked = tCheckedMoveless > 0;
+ 
     const tFps = getIntQueryParam("fps", 30);
     console.info("set scan FPS = %d", tFps);
     window.addEventListener("gamepadconnected", onGamepadConnected);
