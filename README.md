@@ -1,6 +1,7 @@
 # GcScannerJs
 Broweser-based input device scanner for
-[GameControllerizer](https://github.com/GameControllerizer/GameControllerizer"). Control operations from a input device is scanned, convered to [DSL4GC](https://github.com/GameControllerizer/DSL4GC), then sent to Node-RED via Websocket (`ws://[wshost]:[wsport]/{gamepad,mouse,keyboard}`). **FireFox** browser is strongly recommended.
+[GameControllerizer](https://github.com/GameControllerizer/GameControllerizer"). Control operations from a input device is scanned, convered to [DSL4GC](https://github.com/GameControllerizer/DSL4GC), then sent to Node-RED via Websocket (`ws://[wshost]:[wsport]/{gamepad,mouse,keyboard}`).</br>
+**When you use FireFox, set** *"network.websocket.allowInsecureFromHTTPS"* to **true**.
 
 ## Usage(online)
 Access to https://gamecontrollerizer.github.io/GcScannerJs/
